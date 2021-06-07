@@ -32,7 +32,11 @@ namespace BlazingPizza.Server
                 .AddApiAuthorization<PizzaStoreUser, PizzaStoreContext>();
 
             services.AddAuthentication()
-                .AddIdentityServerJwt();
+                .AddIdentityServerJwt()
+                .AddMicrosoftAccount(options => {
+                    options.ClientId = Configuration["Authentication:MSA:ClientID"];
+                    options.ClientSecret = Configuration["Authentication:MSA:Secret"];
+                });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
