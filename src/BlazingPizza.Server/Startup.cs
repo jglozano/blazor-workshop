@@ -29,7 +29,9 @@ namespace BlazingPizza.Server
                 .AddEntityFrameworkStores<PizzaStoreContext>();
 
             services.AddIdentityServer()
+                .AddDeveloperSigningCredential(persistKey: false)
                 .AddApiAuthorization<PizzaStoreUser, PizzaStoreContext>();
+                
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
