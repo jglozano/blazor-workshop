@@ -1,21 +1,20 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and Deploy - NET6
-
-on:
-  push:
-    branches:
-      - master
-  workflow_dispatch:
+name: NET 6 Build
 
 env:
   SOLUTION_PATH: './src/BlazingPizza.sln'
-  DOTNET_VERSION: '6.0.x'  
+  DOTNET_VERSION: '6.0.x'
+
+on:
+  push:
+    branches: [ net6 ]
+  workflow_dispatch:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2

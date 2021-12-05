@@ -1,20 +1,20 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and Deploy - NET5
-
-on:
-  push:
-    branches:
-      - master
-  workflow_dispatch:
+name: NET 5 Build
 
 env:
   SOLUTION_PATH: './src/BlazingPizza.sln'
+  DOTNET_VERSION: '5.0.x'
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -24,7 +24,7 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '5.0.x'
+          dotnet-version: '${{ env.DOTNET_VERSION }}'
           include-prerelease: true
 
       - name: Install dependencies
