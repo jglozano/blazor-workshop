@@ -1,4 +1,4 @@
-# Blazor - app building workshop
+# Blazor - app building workshop -- WIHT .NET 6.0
 
 Welcome to the Blazor app building workshop! 
 
