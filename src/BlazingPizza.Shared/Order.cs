@@ -29,4 +29,6 @@ public class Order
 [JsonSerializable(typeof(List<PizzaSpecial>))]
 [JsonSerializable(typeof(List<Topping>))]
 [JsonSerializable(typeof(Topping))]
+// Need to add to suport net7 changes to System.Text.Json
+[JsonSerializable(typeof(Dictionary<string, string>))]
 public partial class OrderContext : JsonSerializerContext { }
