@@ -10,7 +10,7 @@
             <img src="img/user.svg" />
             <div>
                 <a href="authentication/profile" class="username">@context.User.Identity.Name</a>
-                <button class="btn btn-link sign-out" @onclick="BeginSignOut">Sign out</button>
+                <button class="btn btn-link sign-out" @onclick="SignOut">Sign out</button>
             </div>
         </Authorized>
         <NotAuthorized>
@@ -21,9 +21,10 @@
 </div>
 
 @code{
-    async Task BeginSignOut()
+    void SignOut()
     {
-        await SignOutManager.SetSignOutState();
-        Navigation.NavigateTo("authentication/logout");
+        Navigation.NavigateToLogout("authentication/logout");
+        //await SignOutManager.SetSignOutState();
+        //Navigation.NavigateTo("authentication/logout");
     }
 }
