@@ -3,21 +3,21 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
 
-builder.Services.AddControllersWithViews();
-builder.Services.AddRazorPages();
+services.AddControllersWithViews();
+services.AddRazorPages();
 
-builder.Services.AddDbContext<PizzaStoreContext>(options =>
-        options.UseSqlite("Data Source=pizza.db")
-            .UseModel(BlazingPizza.Server.Models.PizzaStoreContextModel.Instance));
+services.AddDbContext<PizzaStoreContext>(options => options.UseSqlite("Data Source=pizza.db")
+        .UseModel(BlazingPizza.Server.Models.PizzaStoreContextModel.Instance));
 
-builder.Services.AddDefaultIdentity<PizzaStoreUser>(options => options.SignIn.RequireConfirmedAccount = true)
+services.AddDefaultIdentity<PizzaStoreUser>(options => options.SignIn.RequireConfirmedAccount = true)
         .AddEntityFrameworkStores<PizzaStoreContext>();
 
-builder.Services.AddIdentityServer()
+services.AddIdentityServer()
         .AddApiAuthorization<PizzaStoreUser, PizzaStoreContext>();
 
-builder.Services.AddAuthentication()
+services.AddAuthentication()
         .AddIdentityServerJwt();
 
 var app = builder.Build();
@@ -51,8 +51,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication();
 app.UseIdentityServer();
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapPizzaApi();
