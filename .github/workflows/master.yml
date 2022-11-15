@@ -32,13 +32,15 @@ jobs:
         run: dotnet build '${{env.SOLUTION_PATH}}' --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish '${{env.SOLUTION_PATH}}' --no-build -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish '${{env.SOLUTION_PATH}}' --no-build -c Release -o ${{env.DOTNET_ROOT}}/myapp /p:DebugType=None /p:DebugSymbols=false
 
       - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: dotnet-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          path: |
+            ${{env.DOTNET_ROOT}}/myapp            
+            !${{env.DOTNET_ROOT}}/myapp/**/*LICENSE*
 
   deploy:
     runs-on: windows-latest
@@ -52,6 +54,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: dotnet-app
+          path: download/dotnet-app
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -60,4 +63,4 @@ jobs:
           app-name: ${{env.APP_NAME}}
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9FEDFBECDB154C0E80572E6E89091151 }}
-          package: .
+          package: download/dotnet-app
