@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace BlazingPizza;
+﻿namespace BlazingPizza;
 
 /// <summary>
 ///    /// Represents a customized pizza as part of an order
@@ -38,7 +36,3 @@ public class Pizza
         return GetTotalPrice().ToString("0.00");
     }
 }
-
-[JsonSourceGenerationOptions(GenerationMode = JsonSourceGenerationMode.Serialization)]
-[JsonSerializable(typeof(Pizza))]
-public partial class PizzaContext : JsonSerializerContext { }

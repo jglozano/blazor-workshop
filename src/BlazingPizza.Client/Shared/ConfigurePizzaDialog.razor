@@ -63,9 +63,9 @@
     [Parameter] public EventCallback OnCancel { get; set; }
     [Parameter] public EventCallback OnConfirm { get; set; }
 
-    protected async override Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
-        toppings = await HttpClient.GetFromJsonAsync("toppings", BlazingPizza.OrderContext.Default.ListTopping);
+        toppings = await HttpClient.GetFromJsonAsync<List<Topping>>("toppings");
     }
 
     void ToppingSelected(ChangeEventArgs e)

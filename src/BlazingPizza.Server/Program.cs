@@ -4,10 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllersWithViews()
-    .AddJsonOptions(options => {
-        options.JsonSerializerOptions.AddContext<BlazingPizza.OrderContext>();
-    });
+builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<PizzaStoreContext>(options =>
